@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import { askSchema } from "@/lib/schemas";
 import { callOpenRouter } from "@/lib/openrouter";
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase-server";
 
 export async function POST(req: Request) {
   try {

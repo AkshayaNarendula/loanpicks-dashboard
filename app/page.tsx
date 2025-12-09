@@ -1,5 +1,5 @@
 // app/page.tsx
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase-server";
 
 export default async function HomePage() {
   const supabase = await supabaseServer();

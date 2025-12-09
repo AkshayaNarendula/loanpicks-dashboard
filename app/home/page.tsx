@@ -1,5 +1,5 @@
 // app/home/page.tsx
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
 
 export default async function HomeAfterLogin() {

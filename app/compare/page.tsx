@@ -1,6 +1,6 @@
 // app/compare/page.tsx
 import CompareClient from "@/components/CompareClient";
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase-server";
 
 export default async function ComparePage() {
   const supabase = await supabaseServer(); // ✅ FIXED (must await)

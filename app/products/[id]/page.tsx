@@ -1,4 +1,4 @@
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase-server";
 
 export default async function ProductDetail(props: { params: Promise<{ id: string }> }) {
   

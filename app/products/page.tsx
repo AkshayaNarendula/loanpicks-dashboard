@@ -1,5 +1,5 @@
 // app/products/page.tsx
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase-server";
 import ProductsPageClient from "@/components/ProductsPageClient";
 
 export default async function ProductsPage() {

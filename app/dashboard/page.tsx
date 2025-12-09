@@ -1,5 +1,5 @@
 // app/dashboard/page.tsx
-import { supabaseServer } from "@/lib/supabaseServer";
+import { supabaseServer } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
 import DashboardClient from "@/components/DashboardClient";
 
