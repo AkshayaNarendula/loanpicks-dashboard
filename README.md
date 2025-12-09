@@ -1,5 +1,8 @@
 LoanPicks Dashboard
 
+Live Demo (Vercel Deployment)
+https://loanpicks-dashboard-axv8-git-main-akshaya-narendulas-projects.vercel.app
+
 A personalized loan-recommendation platform built using Next.js 14 (App Router), TypeScript, Supabase, shadcn/ui, and OpenRouter AI. Users can explore curated loan products, view details, compare loans, and chat with an AI assistant grounded in real product data.
 
 Overview
@@ -55,7 +58,6 @@ Fetches all loan products from Supabase
 Sorts using ascending APR
 Highlights the Best Match
 Displays dynamic Badges based on product attributes
-
 
 
 Offers:
@@ -150,7 +152,6 @@ disbursal_speed = "fast" or "instant"   Fast Disbursal
 docs_level = "low"  Low Docs
 
 
-
 Badges appear on:
 Dashboard cards
 Product detail pages
@@ -191,16 +192,23 @@ Visit:
 http://localhost:3000
 
 Deployment (Vercel)
-Push repo to GitHub
-Import project into Vercel
-Add environment variables in Vercel
-Deploy
+Follow these steps to deploy the application:
 
-Vercel automatically:
-Builds Next.js App Router
-Handles route handlers
-Optimizes RSC + ISR
+1. Push the repository to GitHub  
+2. Import the project into Vercel  
+3. Add required environment variables in Vercel  
+4. Click Deploy
+   
+Live Production App:
+The application is deployed on Vercel and can be accessed here:
+https://loanpicks-dashboard-axv8-git-main-akshaya-narendulas-projects.vercel.app
 
-Demo Video
-(Add link when uploaded)
+Vercel Automatically Handles:
+- Building the Next.js App Router  
+- Serverless Route Handlers (`/app/api/*`)  
+- Optimized Rendering (RSC + ISR)  
+- Environment variable injection  
+- Zero-config deployments  
+
+Demo Video  
 
