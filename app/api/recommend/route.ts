@@ -3,7 +3,7 @@ import { supabaseServer } from "@/lib/supabase-server";
 export async function POST(req: Request) {
   const { income, credit } = await req.json();
 
-  const supabase = supabaseServer();
+  const supabase = await supabaseServer();
   const { data: products, error } = await supabase.from("products").select("*");
 
   if (error) return Response.json({ error: error.message }, { status: 500 });
