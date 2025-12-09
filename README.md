@@ -1,8 +1,7 @@
 LoanPicks Dashboard
 
 Live Demo (Vercel Deployment)
-https://loanpicks-dashboard-axv8-git-main-akshaya-narendulas-projects.vercel.app
-
+https://loanpicks-dashboard.vercel.app/
 A personalized loan-recommendation platform built using Next.js 14 (App Router), TypeScript, Supabase, shadcn/ui, and OpenRouter AI. Users can explore curated loan products, view details, compare loans, and chat with an AI assistant grounded in real product data.
 
 Overview
@@ -201,7 +200,7 @@ Follow these steps to deploy the application:
    
 Live Production App:
 The application is deployed on Vercel and can be accessed here:
-https://loanpicks-dashboard-axv8-git-main-akshaya-narendulas-projects.vercel.app
+https://loanpicks-dashboard.vercel.app/
 
 Vercel Automatically Handles:
 - Building the Next.js App Router  
@@ -211,4 +210,4 @@ Vercel Automatically Handles:
 - Zero-config deployments  
 
 Demo Video  
-
+https://drive.google.com/file/d/1uG2G9zFhJtJTLdbusDDFXwmUPbTF7lHt/view?usp=sharing
