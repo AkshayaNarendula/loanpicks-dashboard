@@ -1,6 +1,6 @@
 // app/layout.tsx
 import "./globals.css";
-import Navbar from "@/components/navbar";
+import NavbarWrapper from "@/components/NavbarWrapper"; // Use wrapper to hide navbar on login
 import type { ReactNode } from "react";
 
 export const metadata = {
@@ -10,10 +10,19 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        {/* Navbar is a client component that can decide what to show based on auth */}
-        <Navbar />
-        <main>{children}</main>
+      <body
+        className="
+          min-h-screen 
+          bg-gradient-to-br from-purple-100 via-white to-indigo-100
+          text-black
+        "
+      >
+        {/* Navbar Wrapper (hides navbar on login/signup automatically) */}
+        <NavbarWrapper />
+
+        <main className="pt-6 pb-16">
+          {children}
+        </main>
       </body>
     </html>
   );

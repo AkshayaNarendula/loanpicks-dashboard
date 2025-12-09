@@ -28,7 +28,7 @@ export default function Navbar() {
 
   async function logout() {
     await supabase.auth.signOut();
-    router.push("/login");
+    router.push("/"); // 👈 redirect to homepage
   }
 
   if (loading) return null;
@@ -40,7 +40,7 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center gap-6 text-lg">
-        {/* SHOW ONLY WHEN LOGGED IN */}
+        {/* LOGGED IN */}
         {user && (
           <>
             <Link href="/dashboard">Dashboard</Link>
@@ -56,17 +56,8 @@ export default function Navbar() {
           </>
         )}
 
-        {/* SHOW ONLY WHEN LOGGED OUT */}
-        {!user && (
-          <>
-            <Link href="/login" className="hover:text-purple-600">
-              Login
-            </Link>
-            <Link href="/signup" className="hover:text-purple-600">
-              Signup
-            </Link>
-          </>
-        )}
+        {/* LOGGED OUT — now empty (NO login button) */}
+        {!user && <></>}
       </div>
     </nav>
   );

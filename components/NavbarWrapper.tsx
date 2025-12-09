@@ -6,11 +6,11 @@ import Navbar from "./navbar";
 export default function NavbarWrapper() {
   const pathname = usePathname();
 
-  // Hide navbar on home, login, signup
-  const hideNavbarRoutes = ["/", "/login", "/signup"];
+  // Hide navbar on home + auth page
+  const hideNavbarRoutes = ["/"];
 
   if (hideNavbarRoutes.includes(pathname)) {
-    return null; // Don't render navbar
+    return null;
   }
 
   return <Navbar />;
