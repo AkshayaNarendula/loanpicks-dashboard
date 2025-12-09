@@ -1,6 +1,6 @@
 // app/layout.tsx
 import "./globals.css";
-import NavbarWrapper from "@/components/NavbarWrapper"; // Use wrapper to hide navbar on login
+import NavbarWrapper from "@/components/NavbarWrapper"; 
 import type { ReactNode } from "react";
 
 export const metadata = {
@@ -17,10 +17,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           text-black
         "
       >
-        {/* Navbar Wrapper (hides navbar on login/signup automatically) */}
         <NavbarWrapper />
 
-        <main className="pt-6 pb-16">
+        {/* GLOBAL PAGE TRANSITION */}
+        <main className="page-transition">
           {children}
         </main>
       </body>

@@ -20,7 +20,6 @@ export default function Navbar() {
     }
     load();
 
-    // listen to login/logout events
     supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user || null);
     });
@@ -28,36 +27,47 @@ export default function Navbar() {
 
   async function logout() {
     await supabase.auth.signOut();
-    router.push("/"); // 👈 redirect to homepage
+    router.push("/");
   }
 
   if (loading) return null;
 
   return (
-    <nav className="flex justify-between px-8 py-4 border-b">
-      <Link href="/" className="text-2xl font-bold text-purple-600">
+    <nav
+      className="
+        sticky top-0 z-50
+        backdrop-blur-md bg-white/40
+        border-b border-purple-200
+        px-8 py-4 flex justify-between items-center
+        shadow-sm
+      "
+    >
+      <Link href="/" className="text-2xl font-bold text-purple-600 hover:opacity-80 transition">
         LoanPicks
       </Link>
 
-      <div className="flex items-center gap-6 text-lg">
-        {/* LOGGED IN */}
+      <div className="flex items-center gap-8 text-lg">
+
+        {!user && (
+          <>
+            <Link href="/login" className="nav-link">Login</Link>
+          </>
+        )}
+
         {user && (
           <>
-            <Link href="/dashboard">Dashboard</Link>
-            <Link href="/products">Products</Link>
-            <Link href="/compare">Compare</Link>
+            <Link href="/dashboard" className="nav-link">Dashboard</Link>
+            <Link href="/products" className="nav-link">Products</Link>
+            <Link href="/compare" className="nav-link">Compare</Link>
 
             <button
               onClick={logout}
-              className="text-red-600 hover:text-red-700"
+              className="text-red-600 hover:text-red-700 transition font-medium"
             >
               Logout
             </button>
           </>
         )}
-
-        {/* LOGGED OUT — now empty (NO login button) */}
-        {!user && <></>}
       </div>
     </nav>
   );
