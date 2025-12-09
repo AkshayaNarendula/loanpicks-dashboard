@@ -1,10 +1,11 @@
 // app/products/page.tsx
-import { supabaseServer } from "@/lib/supabase-server";
+export const runtime = "edge";
+export const revalidate = 60;
+
 import ProductsPageClient from "@/components/ProductsPageClient";
+import { getProducts } from "@/lib/getProducts";
 
 export default async function ProductsPage() {
-  const supabase = await supabaseServer();
-  const { data, error } = await supabase.from("products").select("*");
-
-  return <ProductsPageClient products={data || []} />;
+  const products = await getProducts();
+  return <ProductsPageClient products={products} />;
 }

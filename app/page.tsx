@@ -20,13 +20,17 @@ export default function AuthPage() {
   const [errorMsg, setErrorMsg] = useState("");
   const [showPopup, setShowPopup] = useState(false);
 
+  const [loading, setLoading] = useState(false);  // ⭐ NEW — speed improvement
+
   async function handleSubmit(e: any) {
     e.preventDefault();
     setErrorMsg("");
+    setLoading(true); // ⭐ Show instant feedback
 
     if (!isLogin) {
       if (password !== confirmPassword) {
         setErrorMsg("Passwords do not match");
+        setLoading(false);
         return;
       }
 
@@ -34,19 +38,25 @@ export default function AuthPage() {
 
       if (error) {
         setErrorMsg(error.message);
+        setLoading(false);
       } else {
         setShowPopup(true);
+        setLoading(false);
       }
       return;
     }
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    // LOGIN MODE
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
 
-    if (error) setErrorMsg(error.message);
-    else router.push("/dashboard");
+    if (error) {
+      setErrorMsg(error.message);
+      setLoading(false);
+      return;
+    }
+
+    // ⭐ INSTANT FEEL NAVIGATION
+    router.push("/dashboard?loading=true");
   }
 
   return (
@@ -54,14 +64,14 @@ export default function AuthPage() {
       
       <div className="bg-white p-10 rounded-2xl shadow-xl w-full max-w-md text-black">
         
-        {/* Page Title */}
+        {/* Title */}
         <h1 className="text-3xl font-bold text-center mb-8">
           {isLogin ? "Log In" : "Create Account"}
         </h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           
-          {/* EMAIL FIELD */}
+          {/* EMAIL */}
           <div className="relative">
             <FiMail className="absolute left-3 top-3.5 text-gray-500 text-xl" />
             <input
@@ -72,7 +82,7 @@ export default function AuthPage() {
             />
           </div>
 
-          {/* PASSWORD FIELD */}
+          {/* PASSWORD */}
           <div className="relative">
             <FiLock className="absolute left-3 top-3.5 text-gray-500 text-xl" />
             <input
@@ -96,7 +106,7 @@ export default function AuthPage() {
             )}
           </div>
 
-          {/* CONFIRM PASSWORD FIELD (Signup only) */}
+          {/* CONFIRM PASSWORD */}
           {!isLogin && (
             <div className="relative">
               <FiLock className="absolute left-3 top-3.5 text-gray-500 text-xl" />
@@ -122,7 +132,7 @@ export default function AuthPage() {
             </div>
           )}
 
-          {/* ERROR MESSAGE */}
+          {/* ERROR */}
           {errorMsg && (
             <p className="text-red-600 text-center -mt-2">{errorMsg}</p>
           )}
@@ -130,31 +140,33 @@ export default function AuthPage() {
           {/* SUBMIT BUTTON */}
           <button
             type="submit"
-            className="bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg text-lg transition"
+            disabled={loading}
+            className={`py-3 rounded-lg text-lg text-white transition 
+            ${loading ? "bg-purple-400 cursor-not-allowed" : "bg-purple-600 hover:bg-purple-700"}`}
           >
-            {isLogin ? "Log In" : "Create Account"}
+            {loading
+              ? isLogin
+                ? "Logging in..."
+                : "Creating account..."
+              : isLogin
+              ? "Log In"
+              : "Create Account"}
           </button>
         </form>
 
-        {/* Switch Auth Mode */}
+        {/* Switch */}
         <p className="text-center mt-6">
           {isLogin ? (
             <>
               Not registered yet?{" "}
-              <span
-                className="text-blue-600 cursor-pointer"
-                onClick={() => setIsLogin(false)}
-              >
+              <span className="text-blue-600 cursor-pointer" onClick={() => setIsLogin(false)}>
                 Create an Account
               </span>
             </>
           ) : (
             <>
               Already registered?{" "}
-              <span
-                className="text-blue-600 cursor-pointer"
-                onClick={() => setIsLogin(true)}
-              >
+              <span className="text-blue-600 cursor-pointer" onClick={() => setIsLogin(true)}>
                 Log in
               </span>
             </>
@@ -163,7 +175,7 @@ export default function AuthPage() {
 
       </div>
 
-      {/* EMAIL VERIFICATION POPUP */}
+      {/* POPUP */}
       {showPopup && (
         <div className="fixed inset-0 bg-black/50 flex justify-center items-center">
           <div className="bg-white p-8 rounded-xl shadow-lg text-center w-[350px]">

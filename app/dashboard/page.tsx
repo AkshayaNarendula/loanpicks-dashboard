@@ -1,41 +1,30 @@
 // app/dashboard/page.tsx
-import { supabaseServer } from "@/lib/supabase-server";
+export const runtime = "edge";      // ⚡ faster edge runtime
+export const revalidate = 60;       // ⚡ cache response for 1 min
+
 import { redirect } from "next/navigation";
 import DashboardClient from "@/components/DashboardClient";
+import { supabaseServer } from "@/lib/supabase-server";
+import { getProducts } from "@/lib/getProducts";
 
 export default async function DashboardPage() {
-  // ✅ Must await — supabaseServer returns a Promise
   const supabase = await supabaseServer();
 
-  // ✅ Auth check
-  const { data: auth } = await supabase.auth.getUser();
-  if (!auth?.user) redirect("/login");
+  // Faster auth check
+  const { data: session } = await supabase.auth.getSession();
+  if (!session?.session) redirect("/login");
 
-  // ✅ Fetch Products
-  const { data: products, error } = await supabase
-    .from("products")
-    .select("*");
+  // Cached product fetch
+  const products = await getProducts();
+  if (!products.length) return <div className="p-10">No products found.</div>;
 
-  if (error) {
-    console.error("Supabase /dashboard error:", error);
-    return <div className="p-10 text-red-600">Failed to load products.</div>;
-  }
-
-  if (!products || products.length === 0) {
-    return <div className="p-10">No products found.</div>;
-  }
-
-  // ✅ Sort by APR
   const sorted = [...products].sort(
     (a: any, b: any) => Number(a.rate_apr) - Number(b.rate_apr)
   );
 
-  const top5 = sorted.slice(0, 5);
-
-  // Render
   return (
     <div className="p-10">
-      <DashboardClient top5={top5} products={products} />
+      <DashboardClient top5={sorted.slice(0, 5)} products={products} />
     </div>
   );
 }

@@ -49,16 +49,14 @@ export default function Navbar() {
       <div className="flex items-center gap-8 text-lg">
 
         {!user && (
-          <>
-            <Link href="/login" className="nav-link">Login</Link>
-          </>
+          <Link href="/login" className="nav-link">Login</Link>
         )}
 
         {user && (
           <>
-            <Link href="/dashboard" className="nav-link">Dashboard</Link>
-            <Link href="/products" className="nav-link">Products</Link>
-            <Link href="/compare" className="nav-link">Compare</Link>
+            <Link href="/dashboard" prefetch={true} className="nav-link">Dashboard</Link>
+            <Link href="/products" prefetch={true} className="nav-link">Products</Link>
+            <Link href="/compare" prefetch={true} className="nav-link">Compare</Link>
 
             <button
               onClick={logout}

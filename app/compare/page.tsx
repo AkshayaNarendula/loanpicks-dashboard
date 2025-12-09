@@ -1,18 +1,13 @@
 // app/compare/page.tsx
+export const runtime = "edge";
+export const revalidate = 60;
+
 import CompareClient from "@/components/CompareClient";
-import { supabaseServer } from "@/lib/supabase-server";
+import { getProducts } from "@/lib/getProducts";
 
 export default async function ComparePage() {
-  const supabase = await supabaseServer(); // ✅ FIXED (must await)
-
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .order("name", { ascending: true });
-
-  if (error) {
-    console.error("Supabase error loading products:", error);
-  }
-
-  return <CompareClient initialProducts={data ?? []} />;
+  const products = await getProducts();
+  return (
+    <CompareClient initialProducts={products.sort((a, b) => a.name.localeCompare(b.name))} />
+  );
 }
